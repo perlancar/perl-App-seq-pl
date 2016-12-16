@@ -1,0 +1,111 @@
+#!perl
+
+# DATE
+# VERSION
+
+use strict;
+use warnings;
+use Getopt::Long;
+
+# ABSTRACT: Like seq, but with Perl extras
+# PODNAME:
+
+my %Opts = (
+    separator => "\n",
+    format => undef,
+    equal_width => 0,
+);
+Getopt::Long::Configure('bundling', 'no_ignore_case',
+                        # because we want to allow negative numbers without error
+                        'pass_through',
+                    );
+GetOptions(
+    'help|h|?' => sub {
+        print <<'_';
+Usage: seq-pl [options] <start> <end>
+       seq-pl --help, -h, -?
+       seq-pl --version, -v
+
+Options:
+  --format=s, -f
+  --equal-width, -w
+  --separator=s, -s
+
+_
+        exit 0;
+    },
+    'version|v' => sub {
+        no warnings 'once';
+        print "seq-pl version ", ($main::VERSION || "dev"),
+            ($main::DATE ? " ($main::DATE)" : ""), "\n";
+        exit 0;
+    },
+    'format|f=s' => \$Opts{format},
+    'equal-width|w' => \$Opts{equal_width},
+    'separator|s=s' => \$Opts{separator},
+);
+
+my $re_num = qr/\A-?\d+(\.\d+)?\z/;
+
+@ARGV == 2 or die "seq-pl: Please specify start and end\n";
+my ($start, $end) = @ARGV;
+my $is_numeric = $start =~ $re_num && $end =~ $re_num;
+my $format;
+for my $x ($start .. $end) {
+    unless (defined $format) {
+        $format = $Opts{format};
+        if (!defined $format && $Opts{equal_width}) {
+            $format = "%0".(length($start) > length($end) ? length($start) : length($end)).
+                ($is_numeric ? "d" : "s");
+        }
+        if (!defined $format) {
+            $format = "%s";
+        }
+    }
+    printf "${format}%s", $x, $Opts{separator};
+}
+
+=head1 SYNOPSIS
+
+Create numbers from 1 to 10:
+
+ % seq-pl 1 10
+
+Create hexadecimal numbers from 0x001 to 0x01e:
+
+ % seq-pl 1 31 -f "0x%03x"
+
+Create letters from a to z:
+
+ % seq-pl a z
+
+Create letters from aa to bz:
+
+ % seq-pl aa bz
+
+
+=head1 DESCRIPTION
+
+This variant of B<seq> uses Perl's autoincrement feature to create sequence,
+e.g. 0..10 or "a".."z". The formatting also uses Perl's C<sprintf()> for more
+flexibility.
+
+
+=head1 OPTIONS
+
+=head2 --format, -f
+
+=head2 --separator, -s
+
+=head2 --equal-width, -w
+
+=head2 --help, -h, -?
+
+=head2 --version
+
+
+=head1 SEE ALSO
+
+B<seq>
+
+=cut
