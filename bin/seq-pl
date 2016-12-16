@@ -71,6 +71,10 @@ Create numbers from 1 to 10:
 
  % seq-pl 1 10
 
+Create numbers from 01 to 10, no need to format as Perl will DWIM:
+
+ % seq-pl 01 10
+
 Create hexadecimal numbers from 0x001 to 0x01e:
 
  % seq-pl 1 31 -f "0x%03x"
@@ -78,6 +82,10 @@ Create hexadecimal numbers from 0x001 to 0x01e:
 Create letters from a to z:
 
  % seq-pl a z
+
+This I often do to put things under an alphabet series of folders:
+
+ % mkdir 0 `seq-pl a z`
 
 Create letters from aa to bz:
 
@@ -87,15 +95,15 @@ Create letters from aa to bz:
 =head1 DESCRIPTION
 
 This variant of B<seq> uses Perl's autoincrement feature to create sequence,
-e.g. 0..10 or "a".."z". The formatting also uses Perl's C<sprintf()> for more
-flexibility.
+e.g. 0..10 or "01".."10", or "a".."z". The formatting also uses Perl's
+C<sprintf()> for more flexibility.
 
 
 =head1 OPTIONS
 
-=head2 --format, -f
+=head2 --format=s, -f
 
-=head2 --separator, -s
+=head2 --separator=s, -s
 
 =head2 --equal-width, -w
 
@@ -106,6 +114,11 @@ flexibility.
 
 =head1 SEE ALSO
 
-B<seq>
+B<seq>, the Unix utility.
+
+Other seq variants or themes I've written: L<dateseq> (from L<App::dateseq>)
+which can generate date sequences, including infinite ones, L<seq-pericmd> (from
+L<App::SeqPericmd>) which lets you customize increment/step (e.g. 0.5) or limit
+the number of items.
 
 =cut
