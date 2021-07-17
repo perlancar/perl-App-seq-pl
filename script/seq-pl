@@ -116,9 +116,10 @@ C<sprintf()> for more flexibility.
 
 B<seq>, the Unix utility.
 
-Other seq variants or themes I've written: L<dateseq> (from L<App::dateseq>)
-which can generate date sequences, including infinite ones, L<seq-pericmd> (from
-L<App::SeqPericmd>) which lets you customize increment/step (e.g. 0.5) or limit
-the number of items.
+Other seq variants or themes I've written: L<seq-intrange> (from
+L<App::seq::intrange>), L<seq-numseq> (from L<App::seq::numseq>), L<dateseq>
+(from L<App::dateseq>) which can generate date sequences, including infinite
+ones, L<seq-pericmd> (from L<App::SeqPericmd>) which lets you customize
+increment/step (e.g. 0.5) or limit the number of items.
 
 =cut

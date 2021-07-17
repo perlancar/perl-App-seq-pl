@@ -1,6 +1,8 @@
 package App::seq::pl;
 
+# AUTHORITY
 # DATE
+# DIST
 # VERSION
 
 1;
