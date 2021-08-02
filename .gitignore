@@ -2,3 +2,4 @@ App-seq-pl-*
 .build
 *~
 nytprof*
+.DS_Store
