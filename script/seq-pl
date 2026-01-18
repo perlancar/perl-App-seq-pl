@@ -1,14 +1,13 @@
 #!perl
 
-# DATE
-# VERSION
-
 use strict;
 use warnings;
 use Getopt::Long;
 
-# ABSTRACT: Like seq, but with Perl extras
-# PODNAME:
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 my %Opts = (
     separator => "\n",
@@ -64,6 +63,9 @@ for my $x ($start .. $end) {
     }
     printf "${format}%s", $x, $Opts{separator};
 }
+
+# ABSTRACT: Like seq, but with Perl extras
+# PODNAME:
 
 =head1 SYNOPSIS
 

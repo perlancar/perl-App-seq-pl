@@ -1,5 +1,7 @@
 package App::seq::pl;
 
+use strict;
+
 # AUTHORITY
 # DATE
 # DIST
