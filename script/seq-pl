@@ -52,6 +52,7 @@ my ($start, $end) = @ARGV;
 my $is_numeric = $start =~ $re_num && $end =~ $re_num;
 my $format;
 my $x = $start;
+my $is_last;
 while (1) {
     unless (defined $format) {
         $format = $Opts{format};
@@ -65,12 +66,28 @@ while (1) {
     }
     printf "${format}%s", $x, $Opts{separator};
 
+    last if $is_last;
+
+    # check case e.g. a a
+    if ($is_numeric) {
+        $is_last++ if $x == $end;
+    } else {
+        $is_last++ if $x eq $end;
+    }
+
     # increment
     $x++;
     if ($is_numeric) {
         last if $x > $end;
     } else {
         last if $x gt $end;
+    }
+
+    # check case e.g. a z where z++ -> aa which is "smaller" than z
+    if ($is_numeric) {
+        $is_last++ if $x == $end;
+    } else {
+        $is_last++ if $x eq $end;
     }
 }
 
