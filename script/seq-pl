@@ -51,7 +51,8 @@ my $re_num = qr/\A-?\d+(\.\d+)?\z/;
 my ($start, $end) = @ARGV;
 my $is_numeric = $start =~ $re_num && $end =~ $re_num;
 my $format;
-for my $x ($start .. $end) {
+my $x = $start;
+while (1) {
     unless (defined $format) {
         $format = $Opts{format};
         if (!defined $format && $Opts{equal_width}) {
@@ -63,6 +64,14 @@ for my $x ($start .. $end) {
         }
     }
     printf "${format}%s", $x, $Opts{separator};
+
+    # increment
+    $x++;
+    if ($is_numeric) {
+        last if $x > $end;
+    } else {
+        last if $x gt $end;
+    }
 }
 
 # ABSTRACT: Like seq, but with Perl extras
